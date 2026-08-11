@@ -1,0 +1,39 @@
+package com.entity.app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.entity.app.dtos.ProductoRequestDTO;
+import com.entity.app.service.AltasBajasCambiosService;
+
+@Controller
+//@RestController
+@RequestMapping("/vistas")
+public class ProductosViewController {
+	
+	private final AltasBajasCambiosService altasBajasCambiosService;
+
+	public ProductosViewController(AltasBajasCambiosService altasBajasCambiosService) {
+		this.altasBajasCambiosService = altasBajasCambiosService;
+	}
+	
+	@GetMapping("/productos")
+	public String listarProductos(Model model) {
+		model.addAttribute("productos", altasBajasCambiosService.listarTodos());
+		return "productos/lista";
+	}
+	
+	@PostMapping("/productos")
+	public String guardarProducto(@ModelAttribute ProductoRequestDTO productoRequestDTO, RedirectAttributes redirectAttributes) {
+		altasBajasCambiosService.añadirProducto(productoRequestDTO);
+		redirectAttributes.addFlashAttribute("mensaje", "Producto creado exitosamente");
+		return "redirect:/vistas/productos";
+	}
+	
+}
