@@ -32,16 +32,23 @@ public class ProductosViewController {
 		return "productos/lista";
 	}
 	
-	/*@PostMapping("/productos")
-	public String guardarProducto(@ModelAttribute ProductoRequestDTO productoRequestDTO, RedirectAttributes redirectAttributes) {
-		altasBajasCambiosService.añadirProducto(productoRequestDTO);
-		redirectAttributes.addFlashAttribute("mensaje", "Producto creado exitosamente");
-		return "redirect:/vistas/productos";
-	}*/
+	@GetMapping("/productos/nuevo")
+	public String mostrarFormularioNuevo (Model model) {
+		model.addAttribute("producto", new ProductoRequestDTO());
+		model.addAttribute("esNuevo", true);
+		return "productos/formulario";
+	}
 	
 	@PostMapping("/productos")
+	public String guardarProducto(@ModelAttribute ProductoRequestDTO productoRequestDTO, RedirectAttributes redirectAttributes) {
+		altasBajasCambiosService.addProducto(productoRequestDTO);
+		redirectAttributes.addFlashAttribute("mensaje", "Producto creado exitosamente");
+		return "redirect:/vistas/productos";
+	}
+	
+	/*@PostMapping("/productos")
 	public ProductoResponseDTO guardarProductos(@RequestBody ProductoRequestDTO productoRequestDTO) {
 		return altasBajasCambiosService.addProducto(productoRequestDTO);
-	}
+	}*/
 	
 }

@@ -7,43 +7,91 @@
 </head>
 <body>
     <div class="container">
-		
-		
-		
         <h1 th:text="${esNuevo} ? 'Crear Nuevo Producto' : 'Editar Producto'">Formulario</h1>
+        
         <form th:action="${esNuevo} ? @{/vistas/productos} : @{/vistas/productos/{id}(id=${id})}"
-	          th:method="post"
-	          th:object="${producto}">
+              th:method="post"
+              th:object="${producto}">
+            
+            <!-- Campo oculto para el ID -->
             <input type="hidden" th:field="*{id}" />
-            <!-- Para actualización, necesitamos el método PUT -->            
+            
+            <!-- Para actualización, usamos método PUT -->
+            <input type="hidden" th:if="${!esNuevo}" name="_method" value="PUT" />
+            
+            <!-- Identificador de Negocio -->
             <div class="form-group">
-                <label for="productName">Nombre del Producto:</label>
-                <input type="text" id="productName" th:field="*{productName}" required/>
+                <label for="identificadorNegocio">Identificador de Negocio:</label>
+                <input type="text" id="identificadorNegocio" 
+                       th:field="*{identificadorNegocio}" 
+                       maxlength="50" 
+                       required />
+                <small>Código único para identificar el producto en el negocio</small>
             </div>
             
+            <!-- Clave del Producto -->
             <div class="form-group">
-                <label for="productKey">Clave del Producto:</label>
-                <input type="text" id="productKey" th:field="*{productKey}" required/>
+                <label for="claveProducto">Clave del Producto:</label>
+                <input type="text" id="claveProducto" 
+                       th:field="*{claveProducto}" 
+                       maxlength="10" 
+                       required />
+                <small>Clave interna del producto (máx. 10 caracteres)</small>
             </div>
             
+            <!-- Nombre del Producto -->
             <div class="form-group">
-                <label for="price">Precio:</label>
-                <input type="number" id="price" th:field="*{price}" step="0.01" required/>
+                <label for="nombre">Nombre del Producto:</label>
+                <input type="text" id="nombre" 
+                       th:field="*{nombre}" 
+                       maxlength="200" 
+                       required />
+                <small>Nombre descriptivo del producto</small>
             </div>
             
+            <!-- Precio -->
             <div class="form-group">
-                <label for="minPrice">Precio Mínimo:</label>
-                <input type="number" id="minPrice" th:field="*{minPrice}" step="0.01" required/>
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" 
+                       th:field="*{precio}" 
+                       step="0.01" 
+                       min="0" 
+                       required />
+                <small>Precio del producto (2 decimales)</small>
             </div>
             
+            <!-- Activo (Checkbox) -->
             <div class="form-group">
-                <label for="maxPrice">Precio Máximo:</label>
-                <input type="number" id="maxPrice" th:field="*{maxPrice}" step="0.01" required/>
+                <label for="activo">¿Producto Activo?</label>
+                <input type="checkbox" id="activo" 
+                       th:field="*{activo}" />
+                <small>Marcar si el producto está vigente</small>
             </div>
             
+            <!-- Fecha de Registro (Solo lectura en edición) -->
+            <div class="form-group" th:if="${!esNuevo}">
+                <label for="fechaRegistro">Fecha de Registro:</label>
+                <input type="text" id="fechaRegistro" 
+                       th:field="*{fechaRegistro}" 
+                       readonly 
+                       disabled />
+                <small>Fecha de creación del registro (no modificable)</small>
+            </div>
+            
+            <!-- Usuario Auditor -->
+            <div class="form-group">
+                <label for="usuarioAuditor">Usuario Auditor:</label>
+                <input type="text" id="usuarioAuditor" 
+                       th:field="*{usuarioAuditor}" 
+                       maxlength="50" 
+                       required />
+                <small>Nombre del usuario que registra o modifica el producto</small>
+            </div>
+            
+            <!-- Botones de acción -->
             <div class="form-group">
                 <button type="submit">💾 Guardar</button>
-                <a href="/vistas/productos" class="cancelar" style="padding:10px 20px; text-decoration:none;">❌ Cancelar</a>
+                <a th:href="@{/vistas/productos}" class="cancelar" style="padding:10px 20px; text-decoration:none;">❌ Cancelar</a>
             </div>
         </form>
     </div>
