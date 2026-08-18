@@ -5,12 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.entity.app.dtos.ProductoRequestDTO;
+import com.entity.app.dtos.ProductoResponseDTO;
 import com.entity.app.service.AltasBajasCambiosService;
+import com.entity.app.service.impl.AltasBajasCambiosServiceImpl;
 
 @Controller
 //@RestController
@@ -29,11 +32,16 @@ public class ProductosViewController {
 		return "productos/lista";
 	}
 	
-	@PostMapping("/productos")
+	/*@PostMapping("/productos")
 	public String guardarProducto(@ModelAttribute ProductoRequestDTO productoRequestDTO, RedirectAttributes redirectAttributes) {
 		altasBajasCambiosService.añadirProducto(productoRequestDTO);
 		redirectAttributes.addFlashAttribute("mensaje", "Producto creado exitosamente");
 		return "redirect:/vistas/productos";
+	}*/
+	
+	@PostMapping("/productos")
+	public ProductoResponseDTO guardarProductos(@RequestBody ProductoRequestDTO productoRequestDTO) {
+		return altasBajasCambiosService.añadirProducto(productoRequestDTO);
 	}
 	
 }

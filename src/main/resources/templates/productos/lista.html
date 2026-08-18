@@ -8,6 +8,50 @@
 <body>
     <div class="container">
         <h1>Gestión de Productos</h1>
+		
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ID Negocio</th>
+					<th>Clave Producto</th>
+					<th>Nombre</th>
+					<th>Precio</th>
+					<th>Activo</th>
+					<th>Fecha Registro</th>
+					<th>Usuario Auditor</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto : ${productos}">
+					<td th:text="${producto.id}">ID</td>
+					<td th:text="${producto.identificadorNegocio}">ID Negocio</td>
+					<td th:text="${producto.claveProducto}">Clave Producto</td>
+					<td th:text="${producto.nombre}">Nombre</td>
+					<td th:text="${producto.precio}">Precio</td>
+					<td th:text="${producto.activo}">Activo</td>
+					<td th:text="${producto.fechaRegistro}">Fecha Registro</td>
+					<td th:text="${producto.usuarioAuditor}">Usuario Auditor</td>
+					<td class="acciones">
+						<a th:href="@{/vistas/productos/editar/{id} (id=${producto.id})}" 
+						   class="editar" style="padding:5px 10px; text-decoration:none;">Editar</a>
+						   
+						<form th:action="@{/vistas/productos/eliminar/{id} (id=${producto.id})}"
+						      method="post" class="form-eliminar">
+							<input type="hidden" name="_method" value="DELETE"/>
+							<button type="submit" class="eliminar"
+							        onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+								    Eliminar
+							</button>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td colspan ="8" style="text-align: center;">No hay productos registrados</td>
+				</tr>
+			</tbody>
+		</table>
+		
     </div>
 </body>
 </html>
