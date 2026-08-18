@@ -7,7 +7,7 @@ import com.entity.app.entity.ProductoEntity;
 
 public interface AltasBajasCambiosService {
 	
-	public void añadirProducto(ProductoRequestDTO productoRequestDTO);
+	public void addProducto(ProductoRequestDTO productoRequestDTO);
 	public void actualizarProducto(Long id);
 	public void eliminarProducto(Long id);
 	public void buscarPorIDProducto(Long id);

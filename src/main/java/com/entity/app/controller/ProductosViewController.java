@@ -41,7 +41,7 @@ public class ProductosViewController {
 	
 	@PostMapping("/productos")
 	public ProductoResponseDTO guardarProductos(@RequestBody ProductoRequestDTO productoRequestDTO) {
-		return altasBajasCambiosService.añadirProducto(productoRequestDTO);
+		return altasBajasCambiosService.addProducto(productoRequestDTO);
 	}
 	
 }

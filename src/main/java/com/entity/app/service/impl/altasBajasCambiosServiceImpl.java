@@ -24,7 +24,7 @@ public class AltasBajasCambiosServiceImpl implements AltasBajasCambiosService {
 	}
 
 	@Override
-	public void añadirProducto(ProductoRequestDTO productoRequestDTO) {
+	public void addProducto(ProductoRequestDTO productoRequestDTO) {
 		Long nuevoId = idGenerator.getAndIncrement();
 		ProductoEntity productoEntity = ProductoEntity.builder()
 				.id(nuevoId)
