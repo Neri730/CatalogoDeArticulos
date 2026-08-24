@@ -27,7 +27,7 @@ public class AltasBajasCambiosServiceImpl implements AltasBajasCambiosService {
 	public void addProducto(ProductoRequestDTO productoRequestDTO) {
 		Long nuevoId = idGenerator.getAndIncrement();
 		ProductoEntity productoEntity = ProductoEntity.builder()
-				.id(nuevoId)
+				//.id(nuevoId)
 				.identificadorNegocio(productoRequestDTO.getIdentificadorNegocio())
 				.claveProducto(productoRequestDTO.getClaveProducto())
 				.nombre(productoRequestDTO.getNombre())

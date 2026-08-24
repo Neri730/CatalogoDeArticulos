@@ -3,14 +3,14 @@ package com.entity.app.entity;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "productos") 
@@ -36,7 +36,7 @@ public class ProductoEntity {
 	private Boolean activo;
 
 	@Column(name = "fecha_registro", nullable = false, updatable = false)
-	//@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
 	private Date fechaRegistro;
 
 	@Column(name = "usuario_auditor", length = 50, nullable = false)
