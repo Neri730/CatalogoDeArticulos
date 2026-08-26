@@ -42,9 +42,16 @@ public class AltasBajasCambiosServiceImpl implements AltasBajasCambiosService {
 	}
 
 	@Override
-	public void actualizarProducto(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void actualizarProducto(Long id, ProductoRequestDTO productoRequestDTO) {
+		ProductoEntity productoEntity = buscarPorIDProducto(id);
+		productoEntity.setActivo(productoRequestDTO.getActivo());
+		productoEntity.setClaveProducto(productoRequestDTO.getClaveProducto());
+		productoEntity.setFechaRegistro(productoRequestDTO.getFechaRegistro());
+		productoEntity.setId(productoRequestDTO.getId());
+		productoEntity.setIdentificadorNegocio(productoRequestDTO.getIdentificadorNegocio());
+		productoEntity.setNombre(productoRequestDTO.getNombre());
+		productoEntity.setPrecio(productoRequestDTO.getPrecio());
+		productoRepository.save(productoEntity);
 	}
 
 	@Override
