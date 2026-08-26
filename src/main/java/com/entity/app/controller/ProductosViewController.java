@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.entity.app.dtos.ProductoRequestDTO;
 import com.entity.app.dtos.ProductoResponseDTO;
+import com.entity.app.entity.ProductoEntity;
 import com.entity.app.service.AltasBajasCambiosService;
 import com.entity.app.service.impl.AltasBajasCambiosServiceImpl;
 
@@ -50,5 +52,24 @@ public class ProductosViewController {
 	public ProductoResponseDTO guardarProductos(@RequestBody ProductoRequestDTO productoRequestDTO) {
 		return altasBajasCambiosService.addProducto(productoRequestDTO);
 	}*/
+	
+	@GetMapping("/productos/editar/{id}")
+	public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+		ProductoEntity producto = altasBajasCambiosService.buscarPorIDProducto(id);
+		ProductoRequestDTO productoDTO = new ProductoRequestDTO();
+		productoDTO.setActivo(producto.getActivo());
+		productoDTO.setClaveProducto(producto.getClaveProducto());
+		productoDTO.setFechaRegistro(producto.getFechaRegistro());
+		productoDTO.setId(producto.getId());
+		productoDTO.setIdentificadorNegocio(producto.getIdentificadorNegocio());
+		productoDTO.setNombre(producto.getNombre());
+		productoDTO.setPrecio(producto.getPrecio());
+		productoDTO.setUsuarioAuditor(producto.getUsuarioAuditor());
+		
+		model.addAttribute("producto", productoDTO);
+		model.addAttribute("esNuevo", false);
+		model.addAttribute("id", id);
+		return "productos/formulario";
+	}
 	
 }

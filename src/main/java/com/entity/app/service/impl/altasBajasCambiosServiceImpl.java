@@ -3,6 +3,8 @@ package com.entity.app.service.impl;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Service;
 
 import com.entity.app.dtos.ProductoRequestDTO;
@@ -52,9 +54,8 @@ public class AltasBajasCambiosServiceImpl implements AltasBajasCambiosService {
 	}
 
 	@Override
-	public void buscarPorIDProducto(Long id) {
-		// TODO Auto-generated method stub
-		
+	public ProductoEntity buscarPorIDProducto(Long id) {
+		return productoRepository.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 	}
 
 	@Override
